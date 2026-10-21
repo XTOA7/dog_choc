@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dog Chocolate Toxicity Calculator — Is My Dog in Danger?</title>
+<meta name="description" content="Free dog chocolate toxicity calculator. Enter your dog's weight and the chocolate type and amount to estimate theobromine dose and risk level. Based on peer-reviewed veterinary toxicology research and UK veterinary guidance.">
+<!-- Replace the content value below with your Google Search Console verification code -->
+<meta name="google-site-verification" content="REPLACE_WITH_YOUR_CODE">
+<style>
+  :root{
+    --bg:#faf8f5; --card:#fff; --ink:#1d1d1f; --muted:#6b6b70;
+    --line:#e6e2dc; --accent:#c2410c; --green:#15803d; --amber:#b45309; --red:#b91c1c;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.6;
+  }
+  .wrap{max-width:640px; margin:0 auto; padding:24px 20px 80px}
+  header{text-align:center; padding:16px 0 8px}
+  h1{font-size:1.6rem; margin:0 0 8px; letter-spacing:-0.02em}
+  .sub{color:var(--muted); font-size:.95rem; margin:0}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; margin-top:22px; box-shadow:0 1px 2px rgba(0,0,0,.03)}
+  label{display:block; font-weight:600; font-size:.9rem; margin:0 0 6px}
+  .field{margin-bottom:18px}
+  input,select{
+    width:100%; padding:11px 12px; font-size:1rem; border:1px solid var(--line);
+    border-radius:9px; background:#fff; color:var(--ink); font-family:inherit;
+  }
+  input:focus,select:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:var(--accent)}
+  .row{display:flex; gap:12px}
+  .row > .field{flex:1; margin-bottom:18px}
+  .hint{font-size:.8rem; color:var(--muted); margin-top:4px}
+  button{
+    width:100%; padding:14px; font-size:1.05rem; font-weight:700; border:0; border-radius:10px;
+    background:var(--accent); color:#fff; cursor:pointer; margin-top:4px; font-family:inherit;
+  }
+  button:hover{filter:brightness(1.08)}
+  button:active{transform:translateY(1px)}
+  #result{display:none; margin-top:22px}
+  .result-card{border-radius:14px; padding:22px; border:1px solid var(--line)}
+  .result-card.green{background:#f0fdf4; border-color:#bbf7d0}
+  .result-card.amber{background:#fffbeb; border-color:#fde68a}
+  .result-card.red{background:#fef2f2; border-color:#fecaca}
+  .risk-label{font-size:.8rem; text-transform:uppercase; letter-spacing:.08em; font-weight:700; margin:0 0 4px}
+  .green .risk-label{color:var(--green)} .amber .risk-label{color:var(--amber)} .red .risk-label{color:var(--red)}
+  .risk-title{font-size:1.35rem; font-weight:800; margin:0 0 10px}
+  .dose{font-size:.95rem; color:var(--muted); margin:0 0 14px}
+  .dose b{color:var(--ink)}
+  .advice{font-size:.95rem; margin:0}
+  .advice strong{font-weight:700}
+  .uk-note{background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:12px 14px; margin-top:14px; font-size:.9rem}
+  .uk-note strong{color:#1e40af}
+  .ad-slot{margin:32px 0; padding:16px; text-align:center; color:var(--muted); font-size:.8rem; border:1px dashed var(--line); border-radius:10px}
+  .content{margin-top:40px; border-top:1px solid var(--line); padding-top:28px}
+  .content h2{font-size:1.2rem; margin:28px 0 10px; letter-spacing:-0.01em}
+  .content h2:first-child{margin-top:0}
+  .content p,.content li{font-size:.95rem; color:#333}
+  .content ul{padding-left:20px}
+  .content li{margin-bottom:6px}
+  .content sup a{color:var(--accent); text-decoration:none; font-weight:600}
+  details{border-bottom:1px solid var(--line); padding:14px 0}
+  details:last-of-type{border-bottom:0}
+  summary{font-weight:600; cursor:pointer; font-size:.95rem; list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary::before{content:"+ "; color:var(--accent); font-weight:700}
+  details[open] summary::before{content:"− "}
+  details p{margin:10px 0 0; font-size:.92rem; color:#444}
+  .disclaimer{font-size:.8rem; color:var(--muted); margin-top:32px; padding-top:16px; border-top:1px solid var(--line)}
+  .sources{background:#f5f3ef; border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin-top:28px}
+  .sources h2{font-size:1rem; margin:0 0 10px}
+  .sources ol{padding-left:20px; margin:0}
+  .sources li{font-size:.85rem; color:#444; margin-bottom:8px}
+  .sources a{color:var(--accent); word-break:break-word}
+  .value-note{font-size:.75rem; color:var(--muted); margin-top:-10px; margin-bottom:16px}
+  footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--line); text-align:center; font-size:.85rem; color:var(--muted)}
+  footer a{color:var(--accent); text-decoration:none; margin:0 6px}
+  footer a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>Dog Chocolate Toxicity Calculator</h1>
+    <p class="sub">Enter your dog's weight and what they ate to estimate the theobromine dose and risk level.</p>
+  </header>
+
+  <!-- FORM -->
+  <div class="card">
+    <div class="row">
+      <div class="field">
+        <label for="weight">Dog's weight</label>
+        <input type="number" id="weight" min="1" step="0.1" placeholder="e.g. 20" inputmode="decimal">
+      </div>
+      <div class="field" style="max-width:130px">
+        <label for="unit">Unit</label>
+        <select id="unit">
+          <option value="kg">kg</option>
+          <option value="lb">lb</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="choc">Type of chocolate</label>
+      <select id="choc">
+        <option value="0.25">White chocolate (negligible methylxanthines)</option>
+        <option value="64">Milk chocolate (≈64 mg/oz methylxanthines)</option>
+        <option value="150">Semisweet / sweet dark chocolate (≈150–160 mg/oz)</option>
+        <option value="450">Unsweetened / baking chocolate (≈450 mg/oz)</option>
+        <option value="800">Dry cocoa powder (≈800 mg/oz)</option>
+      </select>
+    </div>
+    <p class="value-note">Methylxanthine content based on MSD Veterinary Manual,<sup><a href="#ref1">[1]</a></sup> with UK clinical guidance from the RVC.<sup><a href="#ref4">[4]</a></sup> Values vary by brand and recipe.</p>
+
+    <div class="row">
+      <div class="field">
+        <label for="amount">Amount eaten</label>
+        <input type="number" id="amount" min="0" step="0.1" placeholder="e.g. 50" inputmode="decimal">
+      </div>
+      <div class="field" style="max-width:130px">
+        <label for="aunit">Unit</label>
+        <select id="aunit">
+          <option value="g">g</option>
+          <option value="oz">oz</option>
+        </select>
+      </div>
+    </div>
+
+    <button id="calc">Check risk level</button>
+    <p class="hint">Estimate only. If your dog ate chocolate, call your vet or a pet poison helpline right away. In the UK, Animal PoisonLine is available 24/7 on <strong>01202 509000</strong> (charged service).<sup><a href="#ref7">[7]</a></sup></p>
+  </div>
+
+  <!-- RESULT -->
+  <div id="result" aria-live="polite"></div>
+
+  <!-- AD SLOT -->
+  <div class="ad-slot">Ad space — replace with your ad network snippet</div>
+
+  <!-- CONTENT -->
+  <div class="content">
+    <h2>How the calculator works</h2>
+    <p>Chocolate contains <strong>theobromine</strong> and <strong>caffeine</strong> (methylxanthines), which dogs metabolize far more slowly than humans. The plasma half-life of theobromine in dogs is approximately <strong>17.5 hours</strong>, compared with 6–10 hours in humans.<sup><a href="#ref2">[2]</a></sup> This tool converts the amount and type of chocolate your dog ate into an estimated theobromine dose in <strong>mg per kg of body weight</strong>, then maps that to a risk range used in peer-reviewed veterinary research.</p>
+    <p>UK veterinary guidance from the Royal Veterinary College (RVC) emphasises that the three essential pieces of information when assessing chocolate ingestion are <strong>the type of chocolate, the amount consumed, and the dog's weight</strong> — exactly the inputs this calculator uses.<sup><a href="#ref4">[4]</a></sup></p>
+    <p>The risk bands below are based on dose thresholds reported in the veterinary literature:</p>
+    <ul>
+      <li><strong>Under ~20 mg/kg</strong> — mild signs such as agitation or vomiting may occur.</li>
+      <li><strong>~20–40 mg/kg</strong> — tachycardia, hyperthermia, and hypertension possible. Contact your vet.</li>
+      <li><strong>~40–60 mg/kg</strong> — arrhythmias, ataxia, tremors possible. Seek veterinary care.</li>
+      <li><strong>Over ~60 mg/kg</strong> — seizures and coma reported. Emergency care recommended.</li>
+      <li><strong>100–200 mg/kg</strong> — approximately 50% mortality in reported cases.</li>
+    </ul>
+    <p class="hint">Thresholds based on Weingart et al. (2021) and MSD Veterinary Manual,<sup><a href="#ref2">[2]</a></sup><sup><a href="#ref1">[1]</a></sup> corroborated by BSAVA's UK clinical summary.<sup><a href="#ref5">[5]</a></sup></p>
+
+    <h2>Chocolate types and methylxanthine content</h2>
+    <p>Darker and more concentrated chocolate is far more dangerous. The total methylxanthine concentration of dry cocoa powder is approximately 800 mg/oz, unsweetened baking chocolate approximately 450 mg/oz, semisweet chocolate approximately 150–160 mg/oz, and milk chocolate approximately 64 mg/oz. White chocolate is a negligible source of methylxanthines.<sup><a href="#ref1">[1]</a></sup> A retrospective study of 156 dogs found that 28 of the 44 dogs with clinical signs had ingested dark or bitter chocolate.<sup><a href="#ref2">[2]</a></sup> The Kennel Club (UK) reinforces this: the darker and more expensive the chocolate, the higher the theobromine content.<sup><a href="#ref6">[6]</a></sup></p>
+
+    <h2>What the research says</h2>
+    <p>A peer-reviewed retrospective study of 156 chocolate ingestion events in dogs (2015–2019) reported that 44 dogs developed clinical signs, with the most common being agitation (33), tremor (22), and vomiting (21). Sinus tachycardia was the most frequent clinical finding (28 dogs). After decontamination and symptomatic treatment, 43 of the 44 dogs survived, giving a mortality rate of less than 3%.<sup><a href="#ref2">[2]</a></sup> The study authors note that the type and amount of chocolate and the time of ingestion are important factors in assessing risk. BSAVA's summary of this study notes that clinical signs are typically reported within <strong>1–4 hours</strong> of ingestion,<sup><a href="#ref5">[5]</a></sup> which is earlier than the 6–12 hours sometimes cited from US sources — this difference likely reflects variation in study populations and reporting methods.</p>
+    <p>UK data from the Veterinary Poisons Information Service (VPIS) shows that chocolate is the single most common poisoning inquiry, with milk chocolate alone accounting for <strong>1,113 cases</strong> in the 2025 annual report.<sup><a href="#ref8">[8]</a></sup></p>
+
+    <h2>Frequently asked questions</h2>
+    <details>
+      <summary>My dog ate chocolate — what should I do first?</summary>
+      <p>Note the type and amount, your dog's weight, and the time it was eaten. Call your veterinarian or a pet poison helpline immediately. In the UK, Animal PoisonLine operates 24/7 on <strong>01202 509000</strong> (this is a charged service).<sup><a href="#ref7">[7]</a></sup> Do not induce vomiting unless a vet tells you to.</p>
+    </details>
+    <details>
+      <summary>How long until chocolate affects a dog?</summary>
+      <p>Clinical signs typically occur within 6–12 hours of ingestion according to US sources,<sup><a href="#ref1">[1]</a></sup> though UK BSAVA guidance reports signs most commonly appearing within 1–4 hours.<sup><a href="#ref5">[5]</a></sup> Theobromine has a long half-life in dogs (approximately 17.5 hours), so symptoms can persist or worsen over time.<sup><a href="#ref2">[2]</a></sup></p>
+    </details>
+    <details>
+      <summary>What are the signs of chocolate poisoning?</summary>
+      <p>Common signs include vomiting, diarrhea, restlessness, excessive thirst, and excessive urination. Higher doses can cause hyperactivity, tremors, racing heart, seizures, and coma.<sup><a href="#ref1">[1]</a></sup> The RVC lists elevated heart rate, vomiting, diarrhea, muscle tremors, and seizures as key signs requiring urgent veterinary attention.<sup><a href="#ref4">[4]</a></sup></p>
+    </details>
+    <details>
+      <summary>Is white chocolate dangerous?</summary>
+      <p>White chocolate is a negligible source of methylxanthines, but its high fat and sugar content can still cause stomach upset or pancreatitis.<sup><a href="#ref1">[1]</a></sup></p>
+    </details>
+    <details>
+      <summary>Can a small amount be safe?</summary>
+      <p>It depends on the dog's weight and the chocolate type. Use the calculator as a rough guide, but when in doubt, call your vet — it's always better to ask.</p>
+    </details>
+    <details>
+      <summary>What about chocolate wrappers and foil?</summary>
+      <p>The Kennel Club warns that chocolate foil wrappers and advent calendar packaging can cause intestinal obstruction if swallowed, so watch for signs of stomach upset even if the chocolate itself was a low-risk type.<sup><a href="#ref6">[6]</a></sup></p>
+    </details>
+
+    <!-- SOURCES -->
+    <div class="sources" id="sources">
+      <h2>Sources & References</h2>
+      <ol>
+        <li id="ref1">Gwaltney-Brant SM. <em>Chocolate Toxicosis in Animals.</em> MSD Veterinary Manual. Reviewed/Revised June 2021. <a href="https://www.msdvetmanual.com/toxicology/food-hazards/chocolate-toxicosis-in-animals" rel="nofollow noopener" target="_blank">msdvetmanual.com</a></li>
+        <li id="ref2">Weingart C, Hartmann A, Kohn B. Chocolate ingestion in dogs: 156 events (2015–2019). <em>Journal of Small Animal Practice.</em> 2021;62(11):979-983. <a href="https://pubmed.ncbi.nlm.nih.gov/33788297/" rel="nofollow noopener" target="_blank">PubMed PMID: 33788297</a></li>
+        <li id="ref3">Cortinovis C, Caloni F. Household Food Items Toxic to Dogs and Cats. <em>Frontiers in Veterinary Science.</em> 2016;3:26. <a href="https://pubmed.ncbi.nlm.nih.gov/27047944/" rel="nofollow noopener" target="_blank">PubMed PMID: 27047944</a></li>
+        <li id="ref4">Royal Veterinary College (RVC). <em>Chocolate poisoning in dogs.</em> <a href="https://www.rvc.ac.uk/" rel="nofollow noopener" target="_blank">rvc.ac.uk</a></li>
+        <li id="ref5">British Small Animal Veterinary Association (BSAVA). <em>Chocolate ingestion in dogs: 156 events (2015–2019).</em> <a href="https://www.bsava.com/" rel="nofollow noopener" target="_blank">bsava.com</a></li>
+        <li id="ref6">The Kennel Club. <em>Chocolate poisoning in dogs.</em> <a href="https://www.thekennelclub.org.uk/" rel="nofollow noopener" target="_blank">thekennelclub.org.uk</a></li>
+        <li id="ref7">Animal PoisonLine (VPIS). UK 24-hour animal poison helpline. Telephone: 01202 509000 (charged service). <a href="https://www.animalpoisonline.co.uk/" rel="nofollow noopener" target="_blank">animalpoisonline.co.uk</a></li>
+        <li id="ref8">Veterinary Poisons Information Service (VPIS). <em>Annual Report 2025.</em> <a href="https://www.vpisuk.co.uk/" rel="nofollow noopener" target="_blank">vpisuk.co.uk</a></li>
+      </ol>
+    </div>
+
+    <p class="disclaimer">This calculator provides estimates for educational purposes only and is not veterinary advice. Methylxanthine content varies by brand and recipe, and individual dogs respond differently. Always consult a licensed veterinarian or pet poison control for your specific situation. In the UK, Animal PoisonLine is available 24/7 on 01202 509000 (charged service).<sup><a href="#ref7">[7]</a></sup></p>
+  </div>
+
+  <footer>
+    <a href="about.html">About</a> |
+    <a href="contact.html">Contact</a> |
+    <a href="privacy.html">Privacy Policy</a>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var form = document.getElementById('calc');
+  var resultEl = document.getElementById('result');
+
+  form.addEventListener('click', function(){
+    var weight = parseFloat(document.getElementById('weight').value);
+    var wUnit  = document.getElementById('unit').value;
+    var mgPerOz = parseFloat(document.getElementById('choc').value);
+    var amount = parseFloat(document.getElementById('amount').value);
+    var aUnit  = document.getElementById('aunit').value;
+
+    if (isNaN(weight) || weight <= 0 || isNaN(amount) || amount <= 0){
+      resultEl.style.display = 'block';
+      resultEl.innerHTML = '<div class="result-card amber"><p class="risk-label">Check inputs</p><p class="risk-title">Enter a valid weight and amount</p><p class="advice">Please fill in your dog\'s weight and how much chocolate was eaten.</p></div>';
+      return;
+    }
+
+    var weightKg = wUnit === 'lb' ? weight * 0.45359237 : weight;
+    var amountOz = aUnit === 'g' ? amount / 28.349523125 : amount;
+    var totalMg = amountOz * mgPerOz;
+    var dose = totalMg / weightKg;
+
+    var level, cls, title, advice;
+    if (dose < 20){
+      level = 'Lower risk';
+      cls = 'green';
+      title = 'Lower risk — monitor your dog';
+      advice = 'This estimate is below the threshold for mild signs reported in veterinary literature. Watch for vomiting, diarrhea, or restlessness. If your dog is small, has health issues, or ate dark chocolate, call your vet anyway.';
+    } else if (dose < 40){
+      level = 'Moderate risk';
+      cls = 'amber';
+      title = 'Moderate risk — contact your vet';
+      advice = 'This estimate falls in a range where cardiovascular signs (tachycardia, hyperthermia) have been reported. Call your veterinarian or a pet poison helpline with the type and amount eaten.';
+    } else if (dose < 60){
+      level = 'Serious risk';
+      cls = 'red';
+      title = 'Serious risk — seek veterinary care';
+      advice = 'This estimate is in a range associated with arrhythmias, tremors, and ataxia. Contact your veterinarian or emergency clinic right away. Do not wait for symptoms.';
+    } else {
+      level = 'Severe risk';
+      cls = 'red';
+      title = 'Potentially severe — emergency care';
+      advice = 'This estimate is in a range associated with seizures and coma. At 100–200 mg/kg, approximately 50% mortality has been reported. Seek emergency veterinary care immediately.';
+    }
+
+    resultEl.style.display = 'block';
+    resultEl.innerHTML =
+      '<div class="result-card ' + cls + '">' +
+        '<p class="risk-label">' + level + '</p>' +
+        '<p class="risk-title">' + title + '</p>' +
+        '<p class="dose">Estimated theobromine dose: <b>' + dose.toFixed(1) + ' mg/kg</b><br>' +
+        'Total methylxanthines: <b>' + totalMg.toFixed(1) + ' mg</b></p>' +
+        '<p class="advice">' + advice + '</p>' +
+        '<div class="uk-note"><strong>UK pet owners:</strong> Animal PoisonLine is available 24/7 on <strong>01202 509000</strong> (charged service).<sup><a href="#ref7">[7]</a></sup></div>' +
+      '</div>';
+  });
+})();
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Dog Chocolate Toxicity Calculator",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any",
+  "description": "Estimate theobromine dose and risk level for a dog that ate chocolate, based on peer-reviewed veterinary toxicology research and UK veterinary guidance from the RVC, BSAVA, Kennel Club, and Animal PoisonLine.",
+  "offers": {"@type": "Offer", "price": "0", "priceCurrency": "GBP"}
+}
+</script>
+</body>
+</html>
