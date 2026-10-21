@@ -53,9 +53,9 @@
   .uk-note{background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:12px 14px; margin-top:14px; font-size:.9rem}
   .uk-note strong{color:#1e40af}
   
-  /* Amazon Affiliate Box Styles */
+  /* Amazon Affiliate Box Styles - Updated for compliance */
   .affiliate-box{margin:32px 0; padding:18px; border:1px solid var(--line); border-radius:10px; background:#fff; text-align:center}
-  .affiliate-box p.label{font-size:0.85rem; color:var(--muted); margin:0 0 8px; text-transform:uppercase; letter-spacing:0.05em}
+  .affiliate-box p.ad-label{font-size:0.75rem; color:#fff; background:#374151; display:inline-block; padding:2px 8px; border-radius:4px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; margin:0 0 10px}
   .affiliate-box h3{font-size:1.05rem; margin:0 0 8px; color:var(--ink)}
   .affiliate-box p.desc{font-size:0.9rem; color:#444; margin:0 0 14px}
   .affiliate-box a.btn{display:inline-block; background:#f3f4f6; color:var(--ink); text-decoration:none; padding:10px 16px; border-radius:6px; font-weight:600; font-size:0.9rem; border:1px solid #d1d5db; transition:background 0.2s}
@@ -76,7 +76,7 @@
   summary::before{content:"+ "; color:var(--accent); font-weight:700}
   details[open] summary::before{content:"− "}
   details p{margin:10px 0 0; font-size:.92rem; color:#444}
-  .disclaimer{font-size:.8rem; color:var(--muted); margin-top:32px; padding-top:16px; border-top:1px solid var(--line)}
+  .disclaimer{font-size:.8rem; color:var(--muted); margin-top:32px; padding-top:16px; border-top:1px solid var(--line); background: #fdf2f2; border-radius: 6px; padding: 12px;}
   .sources{background:#f5f3ef; border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin-top:28px}
   .sources h2{font-size:1rem; margin:0 0 10px}
   .sources ol{padding-left:20px; margin:0}
@@ -145,9 +145,9 @@
   <!-- RESULT -->
   <div id="result" aria-live="polite"></div>
 
-  <!-- AMAZON AFFILIATE SLOT -->
+  <!-- AMAZON AFFILIATE SLOT (UK COMPLIANT) -->
   <div class="affiliate-box">
-    <p class="label">Recommended</p>
+    <p class="ad-label">Ad</p>
     <h3>Keep your dog mentally stimulated</h3>
     <p class="desc">If your vet confirms your dog is out of danger, the <strong>Brightkins DJ Doggo Puzzle Feeder</strong> is a great way to keep them distracted, slow down their eating, and stop them scavenging for more snacks.</p>
     <!-- REPLACE THE LINK BELOW WITH YOUR AMAZON SITE-STRIPE LINK -->
@@ -220,13 +220,14 @@
       </ol>
     </div>
 
-    <p class="disclaimer">This calculator provides estimates for educational purposes only and is not veterinary advice. Methylxanthine content varies by brand and recipe, and individual dogs respond differently. Always consult a licensed veterinarian or pet poison control for your specific situation. In the UK, Animal PoisonLine is available 24/7 on 01202 509000 (charged service).<sup><a href="#ref7">[7]</a></sup></p>
+    <p class="disclaimer"><strong>Disclaimer & Terms:</strong> This calculator provides estimates for educational purposes only and is <strong>not veterinary advice</strong>. It does not constitute the practice of veterinary surgery or medicine. Methylxanthine content varies by brand and recipe, and individual dogs respond differently. Always consult a licensed veterinarian or pet poison control for your specific situation. We accept no liability for any decisions made based on the results of this tool. In the UK, Animal PoisonLine is available 24/7 on 01202 509000 (charged service).<sup><a href="#ref7">[7]</a></sup></p>
   </div>
 
   <footer>
     <a href="about.html">About</a> |
     <a href="contact.html">Contact</a> |
-    <a href="privacy.html">Privacy Policy</a>
+    <a href="privacy.html">Privacy Policy</a> |
+    <a href="terms.html">Terms of Use</a>
   </footer>
 </div>
 
