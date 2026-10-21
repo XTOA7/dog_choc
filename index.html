@@ -52,7 +52,16 @@
   .advice strong{font-weight:700}
   .uk-note{background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px; padding:12px 14px; margin-top:14px; font-size:.9rem}
   .uk-note strong{color:#1e40af}
-  .ad-slot{margin:32px 0; padding:16px; text-align:center; color:var(--muted); font-size:.8rem; border:1px dashed var(--line); border-radius:10px}
+  
+  /* Amazon Affiliate Box Styles */
+  .affiliate-box{margin:32px 0; padding:18px; border:1px solid var(--line); border-radius:10px; background:#fff; text-align:center}
+  .affiliate-box p.label{font-size:0.85rem; color:var(--muted); margin:0 0 8px; text-transform:uppercase; letter-spacing:0.05em}
+  .affiliate-box h3{font-size:1.05rem; margin:0 0 8px; color:var(--ink)}
+  .affiliate-box p.desc{font-size:0.9rem; color:#444; margin:0 0 14px}
+  .affiliate-box a.btn{display:inline-block; background:#f3f4f6; color:var(--ink); text-decoration:none; padding:10px 16px; border-radius:6px; font-weight:600; font-size:0.9rem; border:1px solid #d1d5db; transition:background 0.2s}
+  .affiliate-box a.btn:hover{background:#e5e7eb}
+  .affiliate-box p.disclosure{font-size:0.7rem; color:var(--muted); margin:14px 0 0}
+
   .content{margin-top:40px; border-top:1px solid var(--line); padding-top:28px}
   .content h2{font-size:1.2rem; margin:28px 0 10px; letter-spacing:-0.01em}
   .content h2:first-child{margin-top:0}
@@ -136,8 +145,17 @@
   <!-- RESULT -->
   <div id="result" aria-live="polite"></div>
 
-  <!-- AD SLOT -->
-  <div class="ad-slot">Ad space — replace with your ad network snippet</div>
+  <!-- AMAZON AFFILIATE SLOT -->
+  <div class="affiliate-box">
+    <p class="label">Recommended</p>
+    <h3>A safe alternative for your dog</h3>
+    <p class="desc">When you need to keep your dog distracted and away from harmful snacks, this highly-rated item is a great choice for UK pet owners.</p>
+    <!-- REPLACE THE LINK BELOW WITH YOUR AMAZON SITE-STRIPE LINK -->
+    <a href="https://www.amazon.co.uk/dp/B0C8854VQD/ref=cm_sw_r_as_gl_apa_gl_i_8KZ65T92EA7XJ4671DKJ?linkCode=ml1&tag=xtoa7-21&linkId=ffbb1b302a268dd8d1b374abe04e1da2&gaOptInStatus=true" target="_blank" rel="nofollow sponsored noopener" class="btn">
+      View on Amazon →
+    </a>
+    <p class="disclosure">As an Amazon Associate I earn from qualifying purchases.</p>
+  </div>
 
   <!-- CONTENT -->
   <div class="content">
